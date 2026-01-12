@@ -20,7 +20,7 @@ Tamira kombiniert technische Tiefe mit Business-Perspektive und menschlichem Ver
    - Reale User-Tests mit Patienten
    - Zeigt ihre Kombination aus technischer Innovation und sozialem Impact
 
-2. **Choral Practice App** (C#, Unity) - Bachelor Thesis
+2. **Choral Practice App** - Bachelor Thesis
    - Webapplikation für digitale Chorpraxis
    - Verbindet verschiedene Domänen mit moderner Technologie
    - Zeigt ihre Fähigkeit, komplexe Probleme interdisziplinär zu lösen
