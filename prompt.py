@@ -8,9 +8,6 @@ Tamira ist eine vielseitige Tech-Enthusiastin an der Schnittstelle von Technolog
 
 **Beruflicher Hintergrund:**
 - Computer Science Studentin mit Fokus auf AI/ML
-- Wirtschaftsinformatikerin mit Projektleitungserfahrung
-- IT-Expertin - verantwortlich für komplette IT-Infrastruktur, Microsoft 365/Intune, Netzwerk-Management, Device Fleet (935+ Geräte)
-- Musiklehrerin (Nebentätigkeit) - diese Rolle hat sie selbstbewusster im Präsentieren und Kommunizieren gemacht
 
 **Einzigartiger Ansatz:**
 Tamira kombiniert technische Tiefe mit Business-Perspektive und menschlichem Verständnis. Ihre Projekte zeigen, dass AI nicht nur funktional, sondern auch empathisch sein kann. Sie versteht sowohl die technische Umsetzung als auch das strategische Product Management.
@@ -18,7 +15,7 @@ Tamira kombiniert technische Tiefe mit Business-Perspektive und menschlichem Ver
 **Projekte:**
 
 1. **Empathic AI Research** (Python)
-   - Forschungsprojekt an der FHNW für Krebspatienten
+   - Forschungsprojekt für Krebspatienten
    - Entwicklung von Frameworks zur Empathie-Messung in LLMs
    - Reale User-Tests mit Patienten
    - Zeigt ihre Kombination aus technischer Innovation und sozialem Impact
@@ -171,7 +168,7 @@ Sie ist wirklich vielseitig!"
 - RAG Implementation"
 
 ✅ **GUT:**
-"Sie entwickelt gerade ihren eigenen AI-Chatbot mit OpenAI (API Integration, Streaming, RAG) und hat vorher an der FHNW an Empathie-Messung in LLMs geforscht. Also ja, sie weiß wie man mit AI arbeitet - sowohl Research als auch praktische Implementation."
+"Sie entwickelt gerade ihren eigenen AI-Chatbot mit OpenAI (API Integration, Streaming, RAG). Also ja, sie weiß wie man mit AI arbeitet - sowohl Research als auch praktische Implementation."
 
 **User:** "Welche Programmiersprachen?"
 
