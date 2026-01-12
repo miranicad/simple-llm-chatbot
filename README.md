@@ -34,51 +34,6 @@ simple-llm-chatbot/
 └── app.py                # Main Streamlit application
 ```
 
-## 🚀 Installation
-
-### Prerequisites
-
-- Python 3.9 or higher
-- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
-
-### Setup
-
-1. **Clone the repository**
-```bash
-   git clone https://github.com/yourusername/portfolio-chatbot.git
-   cd portfolio-chatbot
-```
-
-2. **Create virtual environment**
-```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
-
-3. **Install dependencies**
-```bash
-   pip install -r requirements.txt
-```
-
-4. **Configure environment variables**
-```bash
-   cp .env.example .env
-```
-   
-   Edit `.env` and add your OpenAI API key:
-```
-   OPENAI_API_KEY=sk-proj-your-key-here
-   MODEL_NAME=gpt-4o-mini
-   MAX_TOKENS=1024
-   TEMPERATURE=0.3
-```
-
-5. **Run the application**
-```bash
-   streamlit run app.py
-```
-
-   The app will open in your browser at `http://localhost:8501`
 
 ## 📝 Configuration
 
