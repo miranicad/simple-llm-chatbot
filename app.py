@@ -41,7 +41,8 @@ st.title("Tamira AI")
 # Optional: bilingual note about limits
 st.caption(
     "🇩🇪 Hinweis: Um mein Budget nicht zu sprengen, ist diese Demo limitiert (Anfragen pro Minute/Tag). "
-    "🇬🇧 Note: To avoid exceeding my budget, this demo is rate-limited (requests per minute/day)."
+)
+st.caption(    "🇬🇧 Note: To avoid exceeding my budget, this demo is rate-limited (requests per minute/day)."
 )
 
 # ----- Admin kill switch -----
