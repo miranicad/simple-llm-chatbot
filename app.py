@@ -18,6 +18,11 @@ DEMO_DISABLED = str(st.secrets.get("DEMO_DISABLED", "false")).lower() == "true"
 # ---------------------------------------------------------------
 
 st.title("Tamira AI")
+st.caption(
+    "🇩🇪 Hinweis: Um mein Budget nicht zu sprengen, ist diese Demo limitiert (Anzahl Anfragen pro Minute/Tag). "
+    "🇬🇧 Note: To avoid exceeding my budget, this demo is rate-limited (number of requests per minute/day)."
+)
+
 
 # ----- Admin kill switch -----
 if DEMO_DISABLED:
