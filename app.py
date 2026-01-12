@@ -108,7 +108,7 @@ if prompt:
 
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # ✅ Count the call right before we trigger the LLM (cost point)
+
     st.session_state["calls"].append(time.time())
     st.session_state["daily_count"] += 1
 
