@@ -1,30 +1,25 @@
-from openai import  OpenAI
+from openai import OpenAI
 from config import OPENAI_API_KEY, MODEL, MAX_TOKENS, TEMPERATURE
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def generate_response(messages):
-
     """
-    Calls OpenAI API
+    Calls OpenAI API (streaming).
 
-    :param messages: List messages in format:
-                    [{"role": "user", "content": "Hallo"}]
-    :return:
-        Generator for response
+    :param messages: list of dicts:
+        [{"role": "system"|"user"|"assistant", "content": "..."}]
+    :return: generator/stream response
     """
-
     try:
-        response = client.chat.completions.create(
-            messages= messages,
-            model= MODEL,
+        return client.chat.completions.create(
+            model=MODEL,
+            messages=messages,
             max_tokens=MAX_TOKENS,
-            temperature = TEMPERATURE, # prediction for next word
-            stream = True # answer is shown step by step
+            temperature=TEMPERATURE,
+            stream=True,
         )
-
-        return response
-
     except Exception as e:
+        # Avoid printing secrets; this is okay as long as you don't log messages/keys
         print(f"Error beim API Call: {e}")
         raise

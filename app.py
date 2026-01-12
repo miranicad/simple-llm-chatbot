@@ -6,24 +6,43 @@ from llm_client import generate_response
 from prompt import SYSTEM_PROMPT
 
 # ------------------- Demo Protection Settings -------------------
-HUMAN_CODE = "TAMIRA"          # simple human check gate
-MAX_CALLS_PER_MIN = 6          # per browser session
-DAILY_SESSION_LIMIT = 30       # per browser session per day
-MAX_INPUT_CHARS = 1500         # prevent huge prompts (cost control)
+HUMAN_CODE = "TAMIRA"
+MAX_CALLS_PER_MIN = 6
+DAILY_SESSION_LIMIT = 30
+MAX_INPUT_CHARS = 1500
+
+# Context/cost controls
+HISTORY_TURNS = 6          # keep last N (user+assistant) turns in API context
+MAX_MSG_CHARS = 1200       # optional: cap per message sent to API
 
 # Optional: remote kill switch via Streamlit Secrets
-# In Streamlit Cloud -> Manage app -> Settings -> Secrets:
-# DEMO_DISABLED="false"
 DEMO_DISABLED = str(st.secrets.get("DEMO_DISABLED", "false")).lower() == "true"
 # ---------------------------------------------------------------
 
-st.title("Tamira AI")
-st.caption(
-    "🇩🇪 Hinweis: Um mein Budget nicht zu sprengen, ist diese Demo limitiert (Anzahl Anfragen pro Minute/Tag). "
-)
-st.caption(    "🇬🇧 Note: To avoid exceeding my budget, this demo is rate-limited (number of requests per minute/day)."
-)
+def build_api_messages(messages, history_turns=6, max_msg_chars=1200):
+    """Keep system prompt + last N turns for the API call, optionally trimming very long messages."""
+    system = next((m for m in messages if m.get("role") == "system"), None)
+    convo = [m for m in messages if m.get("role") != "system"]
 
+    keep = convo[-(history_turns * 2):]  # 2 msgs per turn (user+assistant)
+
+    trimmed = []
+    for m in keep:
+        content = m.get("content", "")
+        if isinstance(content, str) and len(content) > max_msg_chars:
+            content = content[:max_msg_chars] + " …(gekürzt)"
+        trimmed.append({"role": m["role"], "content": content})
+
+    return ([system] if system else []) + trimmed
+
+
+st.title("Tamira AI")
+
+# Optional: bilingual note about limits
+st.caption(
+    "🇩🇪 Hinweis: Um mein Budget nicht zu sprengen, ist diese Demo limitiert (Anfragen pro Minute/Tag). "
+    "🇬🇧 Note: To avoid exceeding my budget, this demo is rate-limited (requests per minute/day)."
+)
 
 # ----- Admin kill switch -----
 if DEMO_DISABLED:
@@ -32,7 +51,6 @@ if DEMO_DISABLED:
 
 # ----- Human check gate -----
 st.session_state.setdefault("human_ok", False)
-
 if not st.session_state["human_ok"]:
     code = st.text_input("Type TAMIRA to start (demo protection):").strip().upper()
     if code == HUMAN_CODE:
@@ -80,7 +98,7 @@ prompt = st.chat_input("Say something")
 if prompt:
     prompt = prompt.strip()
 
-    # Input size guard (cost control)
+    # Input size guard
     if len(prompt) > MAX_INPUT_CHARS:
         st.warning(f"Please keep messages under {MAX_INPUT_CHARS} characters for the demo.")
         st.stop()
@@ -94,13 +112,20 @@ if prompt:
     st.session_state["calls"].append(time.time())
     st.session_state["daily_count"] += 1
 
+    # Only send limited context to the API
+    api_messages = build_api_messages(
+        st.session_state.messages,
+        history_turns=HISTORY_TURNS,
+        max_msg_chars=MAX_MSG_CHARS,
+    )
+
     # ----- Assistant streaming response -----
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
 
         try:
-            for chunk in generate_response(st.session_state.messages):
+            for chunk in generate_response(api_messages):
                 delta = chunk.choices[0].delta
                 if delta and getattr(delta, "content", None):
                     full_response += delta.content
@@ -109,7 +134,6 @@ if prompt:
             message_placeholder.markdown(full_response)
 
         except Exception:
-            # Don't leak internal details to users
             st.error("Something went wrong while generating a response. Please try again.")
             st.stop()
 
